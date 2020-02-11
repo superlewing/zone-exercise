@@ -1,5 +1,1 @@
-export default ({ children }) => (
-  <div id="page" className="hfeed site">
-    {children}
-  </div>
-)
+export default ({ children }) => <div>{children}</div>
