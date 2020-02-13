@@ -1,5 +1,5 @@
 import { GENRES } from "./api-config"
-
+// TODO: add these from API call
 export const getGenreName = id => GENRES.find(genre => genre.id === id).name
 
 export const collateGenres = films =>
