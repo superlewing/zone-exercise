@@ -1,4 +1,3 @@
-import React from "react"
 import { cleanup, fireEvent, render } from "@testing-library/react"
 import Index from "./index"
 import { nowPlaying } from "../test/fixtures"

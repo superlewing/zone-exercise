@@ -1,11 +1,14 @@
-import React from "react"
-import { cleanup, fireEvent, render } from "@testing-library/react"
+import React from "./node_modules/react"
+import {
+  cleanup,
+  fireEvent,
+  render
+} from "./node_modules/@testing-library/react"
 import Film from "./Film"
-import { nowPlaying } from "../test/fixtures"
-import { getGenreName } from "../utils/get-genre"
-// Note: running cleanup afterEach is done automatically for you in @testing-library/react@9.0.0 or higher
-// unmount and cleanup DOM after the test is finished.
-// afterEach(cleanup)
+import { nowPlaying } from "../../test/fixtures"
+import { getGenreName } from "../../utils/get-genre"
+
+afterEach(cleanup)
 
 it("Renders the title", () => {
   const film = nowPlaying.results[0]
