@@ -7,8 +7,16 @@ import { getGenreName } from "../utils/get-genre"
 // unmount and cleanup DOM after the test is finished.
 // afterEach(cleanup)
 
+it("Renders the title", () => {
+  const film = nowPlaying.results[0]
+  const { getByText } = render(<Film film={film} />)
+  expect(getByText(film.title)).toBeTruthy()
+})
+
 it("Renders the header with title and genres", () => {
   const film = nowPlaying.results[0]
   const { getByText } = render(<Film film={film} />)
-  film.genre_ids.forEach(id => expect(getGenreName(id)).toBeTruthy())
+  film.genre_ids.forEach(id =>
+    expect(getByText(getGenreName(id), { exact: false })).toBeTruthy()
+  )
 })

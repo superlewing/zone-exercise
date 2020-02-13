@@ -10,9 +10,9 @@ import Typography from "@material-ui/core/Typography"
 import GenreList from "../components/GenreList"
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 345
-  },
+  // root: {
+  //   maxWidth: 345
+  // },
   media: {
     height: 140
   }

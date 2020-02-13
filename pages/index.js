@@ -1,41 +1,88 @@
+import { makeStyles } from "@material-ui/core/styles"
 import { useState } from "react"
 import fetch from "isomorphic-unfetch"
 import Grid from "@material-ui/core/Grid"
-import Layout from "../components/Genres"
+import Layout from "../components/Layout"
 import Film from "../components/Film"
 import Filter from "../components/Filter"
 import Rating from "../components/Rating"
 import { collateGenres } from "../utils/get-genre"
 
+import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
+import Typography from "@material-ui/core/Typography"
+import Button from "@material-ui/core/Button"
+import IconButton from "@material-ui/core/IconButton"
+import MenuIcon from "@material-ui/icons/Menu"
+import FilterListIcon from "@material-ui/icons/FilterList"
+
+const useStyles = makeStyles({
+  root: {
+    margin: 20
+  },
+  media: {
+    height: 140
+  }
+})
+
 const Index = ({ nowPlaying }) => {
   const [genres, setGenres] = useState([])
   const [rating, setRating] = useState(3)
+  const classes = useStyles()
+
   const films = nowPlaying
     .filter(
       item =>
-        !genres.length || item.genre_ids.some(id => genres.indexOf(id) !== -1)
+        !genres.length || genres.every(id => item.genre_ids.indexOf(id) !== -1)
     )
     .filter(item => item.vote_average >= rating)
     .sort((a, b) => b.popularity - a.popularity)
 
-  // const handleSelect = e => setGenres(e.target.value)
+  const handleCheckboxChange = e => {
+    const value = parseInt(e.target.value)
+    setGenres(
+      genres.includes(value)
+        ? genres.filter(id => id !== value)
+        : [...genres, value]
+    )
+  }
 
   return (
     <Layout>
-      <p>Flimsy</p>
-      <Filter
-        available={collateGenres(nowPlaying)}
-        selected={genres}
-        onSelect={e => setGenres(e.target.value)}
-      />
-      <Rating value={rating} onChange={(e, v) => setRating(v)} />
-      <Grid spacing={1} container>
-        {films.map(film => (
-          <Grid item md={3} key={film.id}>
-            <Film film={film} />
+      <AppBar position="static">
+        <Toolbar>
+          <Typography variant="h6">Flimsy</Typography>
+        </Toolbar>
+      </AppBar>
+
+      <div className={classes.root}>
+        <Grid container spacing={1}>
+          <Grid item md={3}>
+            <Grid spacing={1} container>
+              <Grid item md={12}>
+                <Rating value={rating} onChange={(e, v) => setRating(v)} />
+              </Grid>
+              <Grid item>
+                {/* <Typography>Filter by genres:</Typography> */}
+                <Filter
+                  available={collateGenres(nowPlaying)}
+                  selected={genres}
+                  onSelect={handleCheckboxChange}
+                />
+              </Grid>
+            </Grid>
           </Grid>
-        ))}
-      </Grid>
+          <Grid item md={9}>
+            <Grid spacing={1} container>
+              {films.map(film => (
+                <Grid item md={4} key={film.id}>
+                  <Film film={film} />
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
     </Layout>
   )
 }

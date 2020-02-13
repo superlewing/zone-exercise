@@ -18,8 +18,7 @@ export const collateGenres = films =>
 // export const collateGenres = films =>
 //   films.reduce(
 //     (all, current) =>
-//       current.genre_ids.forEach(id => {
-//         all.includes(id) || all.push(id)
-//       }),
+//       current.genre_ids.forEach(id => all.includes(id) || all.push(id)
+//       ),
 //     []
 //   )
