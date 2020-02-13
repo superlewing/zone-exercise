@@ -6,12 +6,12 @@ import { nowPlaying } from "../test/fixtures"
 // afterEach(cleanup)
 
 it("Renders the header with title", () => {
-  const { getByText } = render(<Index nowPlaying={[]} />)
+  const { getByText } = render(<Index films={[]} />)
   expect(getByText(/flimsy/i)).toBeTruthy()
 })
 
 it("Renders films when provided with array of now playing", () => {
-  const { getByText } = render(<Index nowPlaying={nowPlaying.results} />)
+  const { getByText } = render(<Index films={nowPlaying.results} />)
   expect(getByText(nowPlaying.results[0].title)).toBeTruthy()
   expect(getByText(nowPlaying.results[1].title)).toBeTruthy()
 })

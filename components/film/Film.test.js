@@ -1,9 +1,5 @@
-import React from "./node_modules/react"
-import {
-  cleanup,
-  fireEvent,
-  render
-} from "./node_modules/@testing-library/react"
+import React from "react"
+import { cleanup, fireEvent, render } from "@testing-library/react"
 import Film from "./Film"
 import { nowPlaying } from "../../test/fixtures"
 import { getGenreName } from "../../utils/get-genre"
